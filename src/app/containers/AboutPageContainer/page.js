@@ -6,7 +6,7 @@ import aboutimg2 from "../../../../public/about_images/about-2.jpg";
 import { motion } from "framer-motion";
 import Styles from "./AboutPageContainer.module.css";
 import Link from "next/link";
-import Stats from "@/components/AboutComponent/Stats";
+import Stats from "@/app/components/AboutComponent/Stats";
 
 const AboutPageContainer = () => {
    
