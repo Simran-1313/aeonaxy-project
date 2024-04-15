@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import aboutimg1 from "../../../public/about_images/about.jpg";
-import aboutimg2 from "../../../public/about_images/about-2.jpg";
+import aboutimg1 from "../../../../public/about_images/about.jpg";
+import aboutimg2 from "../../../../public/about_images/about-2.jpg";
 import { motion } from "framer-motion";
 import Styles from "./AboutPageContainer.module.css";
 import Link from "next/link";
