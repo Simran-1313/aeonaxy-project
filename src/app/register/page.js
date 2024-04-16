@@ -75,7 +75,9 @@ const Registerpage = () => {
           setPassword(e.target.value);
         }} />
         <button type='submit' disabled={creatingUser} > Register</button>
-        
+        <div className='text-center my-4 text-gray-500 border-t pt-4 ' >
+            Existing Account?&nbsp; <Link className='underline ' href={'/login'}> Login here&raquo;</Link>
+          </div>
       </form>
       
     </section>
