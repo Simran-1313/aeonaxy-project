@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import SmallNavbar from '../components/SmallNavbar';
+import Navbar from '../components/Navbar';
 
 const LoginPage = () => {
 
@@ -22,7 +22,7 @@ const LoginPage = () => {
 
   return (
     <>
-    <SmallNavbar/>
+    <Navbar/>
     <section className='mt-16 h-[70vh]' >
         <h1 className='text-center text-primary text-4xl mb-4 ' >
         Login
