@@ -73,7 +73,7 @@ export const authOptions = {
         return token;
       },
       async session({session,token,user}){
-        console.log("session",{token,user,session})
+        
         //pass in user id to session
         return{
           ...session,

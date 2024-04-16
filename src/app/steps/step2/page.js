@@ -41,7 +41,8 @@ const MyComponent = () => {
     { id: 4, src: '/avatars/avatar8.jpg', alt: 'Image 8'},
   ];
   
-  console.log(session)
+ 
+  
   async function handleProfileInfoUpdate(ev) {
     ev.preventDefault();
  
