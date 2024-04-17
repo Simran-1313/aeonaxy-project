@@ -3,20 +3,44 @@ import React from 'react'
 import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
+import user from '../../../public/user.svg'
+import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const session = useSession();
-  console.log(session);
+  const router = useRouter();
+
   const status = session?.status;
   const userData = session.data?.user  ;
+  const [image, setImage] = useState("");
  let userName = userData?.name || userData?.email;
  if(userName && userName.includes(' ')){
   userName = userName.split(' ')[0];
+  
  }
+ if(userName && userName.length>7){
+  userName = userName.slice(0,7) + '...'
+console.log(userName)
+}
+
 
  const [isDesktop, setIsDesktop] = useState(false);
 
+ useEffect(() => {
+  
+    
+  if (status === "authenticated") {
+    
+  
+    fetch("/api/profile").then((response) => {
+      response.json().then((data) => {
+        setImage(data.image)
+      });
+    });
+  }
+}, [status, session]);
 
   useEffect(() => {
 
@@ -65,7 +89,19 @@ const Navbar = () => {
             </div>
             
             <div className='font-medium flex items-center justify-between relative z-10 ' >
-              <div  className='w-full flex-col justify-center items-center   lg:flex ' onClick={handleClick} >
+            <div className='mx-10' >
+            {image ? (
+                <Image
+                  className=" w-[40px]  rounded-full border-gray-300 flex justify-center border-2 p-1  "
+                  width={20}
+                  height={20}
+                  src={image}
+                  alt={"avatar"}
+                  onClick={()=>{router.push('/profile')}}
+                />
+              ):null}
+            </div>
+              <div  className=' flex-col justify-center items-center   lg:flex ' onClick={handleClick} >
                 <span className={` bg-black/90 block transition-all duration-300 ease-out h-[2.5px] w-7 rounded-sm  ${isOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'}`} ></span>
                 <span className={` bg-black/90 block transition-all duration-300 ease-out h-[2.5px] w-7  rounded-sm my-0.5 ${isOpen ? 'opacity-0' : 'opacity-100'}`} ></span>
                 <span className={` bg-black/90 block transition-all duration-300 ease-out h-[2.5px] w-7 rounded-sm  ${isOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'} `} ></span>
@@ -182,12 +218,34 @@ const Navbar = () => {
                 </span>
 
               </Link>
+             
             </div>
+            {/* <div className='mx-4' >
+            {image ? (
+                
+              ):(<Image
+                className="  w-[35px] rounded-full border-gray-300 flex justify-center border-2 p-1   "
+                width={150}
+                height={150}
+                src={user}
+                
+                alt={"avatar"}
+              />)}
+            </div> */}
              <nav className='flex items-center gap-4 px-4 text-gray-500 font-semibold' >
+              
       { 
           status==='authenticated' && (
           <>
             <Link href={'/profile'} className='whitespace-nowrap' >Hello, {userName}</Link>
+            <Image
+                  className=" w-[40px] mx-2 rounded-full border-gray-300 flex justify-center border-2 p-1  "
+                  width={20}
+                  height={20}
+                  src={image}
+                  alt={"avatar"}
+                  onClick={()=>{router.push('/profile')}}
+                />
             <button onClick={()=>signOut({callbackUrl:'/'}) } className=" border-white bg-primary  px-8 py-2 rounded-full text-white " > LogOut</button>
           </>
           )
